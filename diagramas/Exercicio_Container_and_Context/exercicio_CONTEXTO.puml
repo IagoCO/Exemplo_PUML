@@ -1,0 +1,25 @@
+@startuml C4_Elements
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define DEVICONS2 https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons2
+
+
+SHOW_PERSON_OUTLINE()
+LAYOUT_WITH_LEGEND()
+
+
+Person(rh, "RH da Empresa", "responsável por analisar currículos e entrar em contato com os interessados")
+Person(profissional, "Profissional","responsável por cadastrar e editar as informações existentes em seu currículo no sistema")
+
+System(webSystem, "Sistema de Currículo Web", "O sistema consiste, em uma aplicação WEB no qual usuários podem cadastrar seus currículos de forma online, permitindo que o RH das empresas, visualize/analise e entre em contato.")
+
+System_Ext(MenssageSystem, "Sistema Externo de Envio de Mensagem", "Utilizado para enviar mensagens via SMS, E-mail ou WhatsApp")
+
+
+Rel_U(rh, webSystem, "Visualizar e analisar os curriculos utilizando")
+Rel_R(profissional, webSystem, "Cadastrar e Altera seu curriculos utilizando")
+Rel_L(webSystem, MenssageSystem, "Envio de Mensagens via, SMS, E-mail ou Whatsapp")
+Rel(MenssageSystem, profissional, "Envio de mensagem via SMS, E-mail ou WhatsApp")
+
+
+@enduml

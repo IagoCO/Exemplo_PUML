@@ -1,0 +1,38 @@
+@startuml C4_Elements
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define DEVICONS2 https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons2
+
+
+SHOW_PERSON_OUTLINE()
+LAYOUT_WITH_LEGEND()
+
+
+Person(rh, "RH da Empresa", "responsável por analisar currículos e entrar em contato com os interessados")
+Person(profissional, "Profissional","responsável por cadastrar e editar as informações existentes em seu currículo no sistema")
+
+System_Boundary(formWeb, "Gupy"){
+    Container(spa, "Single Page Application", "Angular", $sprite="angular")
+    Container(API, "API Restful", "Spring Boot/JAVA", "responsável por manter os currículos cadastrados", $sprite="java")
+    ContainerDb(BD, "Banco de Dados", "postgres", "Armazenar currículos", $sprite="postgresql") 
+}
+
+System_Ext(MenssageSystem, "Sistema de Envio de Mensagem")
+
+Rel(rh, spa, "Visualizar e analisar os curriculos utilizando", "HTTP")
+Rel(profissional, spa, "Cadastrar e Alterar seus Currículos utilizando", "HTTP")
+Rel(spa, API, "arquitetura REST com formato JSON para se comunicar", "HTTP/JSON")
+Rel_L(API, BD, "utilizando JDBC para fazer escrita e leitura no banco de dados", "JDBC")
+Rel(API, MenssageSystem, "utilizando arquitetura REST para integrar com serviço de envio de mensagens")
+Rel_U(MenssageSystem, profissional, "Envio de mensagem", "HTTP / HTTPS")
+
+
+!include DEVICONS/angular.puml
+!include DEVICONS/java.puml
+!include DEVICONS/react.puml
+!include DEVICONS2/spring.puml
+!include DEVICONS2/oracle_original.puml
+!include DEVICONS2/postgresql.puml
+
+
+@enduml
